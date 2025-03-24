@@ -1,69 +1,60 @@
-# 🚇 Metro Simülasyonu - BFS ve A* ile Rota Planlama
+# 🚇 Metro Rota Simülasyon Projesi
 
-Bu proje, **Akbank & Global AI Hub Python ile Yapay Zekaya Giriş Bootcamp** kapsamında geliştirilmiştir. Amaç; bir metro ağı üzerinde istasyonlar arası **en az aktarmalı** ve **en hızlı** rotaları bulmak için iki farklı algoritmayı (BFS ve A*) kullanarak rota planlaması yapmaktır.
+## Proje Tanımı
+Bu proje, **Akbank & Global AI Hub Python ile Yapay Zekaya Giriş Bootcamp'i** kapsamında geliştirilmiştir. Projemizin temel amacı, metro ağı üzerinde iki farklı algoritma (BFS ve A*) kullanarak **minimum aktarmalı** ve **en hızlı** güzergahları belirlemektir.
 
-## 📌 Karakter Kodlaması
+## 🛠️ Kullanılan Teknolojiler
 
-Kod dosyasının başında Türkçe karakterlerin terminalde doğru şekilde görüntülenebilmesi için `utf-8` karakter seti açıkça belirtilmiş ve `sys.stdout.reconfigure(encoding='utf-8')` satırı ile çıktı ayarı yapılmıştır.
+| Kütüphane | Açıklama |
+|-----------|----------|
+| `collections` | BFS algoritması için kuyruk (deque) veri yapısı |
+| `heapq` | A* algoritmasında öncelikli kuyruk oluşturmak için |
+| `typing` | Kod okunabilirliğini artıran tür ipuçları |
 
-## 🛠️ Kullanılan Teknolojiler ve Kütüphaneler
+## 🧠 Algoritma Yaklaşımları
 
-| Kütüphane         | Açıklama |
-|-------------------|----------|
-| `collections`     | `deque` veri yapısı BFS algoritmasında kuyruk olarak kullanılmıştır. |
-| `heapq`           | A* algoritmasında öncelikli kuyruk (min-heap) oluşturmak için kullanılmıştır. |
-| `typing`          | Kodun okunabilirliğini artırmak için tür ipuçları (`List`, `Dict`, `Optional` vs.) kullanılmıştır. |
+### 🔄 BFS (Genişlik Öncelikli Arama)
+- **Amacı**: İstasyonlar arasında en az aktarmalı rotaları bulmak
+- **Çalışma Prensibi**: 
+  - Kuyruk yapısı kullanarak tüm olası rotaları tarama
+  - Her adımda komşu istasyonları keşfetme
+- **Tercih Sebebi**: Minimum aktarma sayısına göre en uygun yolu bulma
 
-## 🧠 Kullanılan Algoritmalar
+### ⚡ A* Algoritması
+- **Amacı**: İstasyonlar arasında en hızlı rotaları hesaplamak
+- **Çalışma Prensibi**:
+  - Öncelikli kuyruk ile rota optimizasyonu
+  - Her adımda toplam seyahat süresini hesaplama
+- **Özellikleri**: Basitleştirilmiş heuristic yaklaşımı
 
-### 🔄 BFS (Breadth-First Search) – `en_az_aktarma_bul`
+## 🧪 Örnek Rota Senaryoları
 
-- Amaç: İki istasyon arasındaki **en az aktarmalı** rotayı bulmak.
-- Yapı: Kuyruk (deque), ziyaret kontrolü, her adımda komşu istasyonların keşfi.
-- Neden Seçildi? BFS algoritması en kısa adım sayısına (aktarma sayısına) göre yol bulma konusunda en etkili yöntemlerden biridir.
+### Senaryo 1: AŞTİ → OSB
+- **Az Aktarmalı Rota**: AŞTİ → Kızılay → Ulus → Demetevler → OSB
+- **En Hızlı Rota**: Toplam 19 dakika
 
-### ⚡ A* (A-Star) – `en_hizli_rota_bul`
+### Senaryo 2: Batıkent → Keçiören
+- **Az Aktarmalı Rota**: Batıkent → Demetevler → Gar → Keçiören
+- **En Hızlı Rota**: Toplam 21 dakika
 
-- Amaç: İki istasyon arasındaki **en kısa süreli (en hızlı)** rotayı bulmak.
-- Yapı: Öncelik kuyruğu (heap), her adımda toplam sürenin hesaplanması.
-- Heuristic: Tahmini maliyet 0 olarak alınmış (basit A*).
-- Neden Seçildi? Zaman odaklı en verimli rota hesaplaması için uygundur.
-
-## 🧪 Test Senaryoları
-
-### 1. AŞTİ → OSB
-
-- **En az aktarmalı rota**: AŞTİ → Kızılay → Ulus → Demetevler → OSB  
-- **En hızlı rota** (toplam 19 dakika): AŞTİ → Kızılay → Ulus → Demetevler → OSB
-
-### 2. Batıkent → Keçiören
-
-- **En az aktarmalı rota**: Batıkent → Demetevler → Gar → Keçiören  
-- **En hızlı rota** (toplam 21 dakika): Batıkent → Demetevler → Gar → Keçiören
-
-### 3. Keçiören → AŞTİ
-
-- **En az aktarmalı rota**: Keçiören → Gar → Sıhhiye → Kızılay → AŞTİ  
-- **En hızlı rota** (toplam 14 dakika): Keçiören → Gar → Sıhhiye → Kızılay → AŞTİ
-
-## 🖼️ Örnek Çıktı Görseli
-
-Aşağıda örnek bir test senaryosunun çıktı ekranı yer almaktadır:
+### Senaryo 3: Keçiören → AŞTİ
+- **Az Aktarmalı Rota**: Keçiören → Gar → Sıhhiye → Kızılay → AŞTİ
+- **En Hızlı Rota**: Toplam 14 dakika
 
 ![Metro Ağı Görseli](çıktı.jpg)
 
-## 💡 Geliştirme Önerileri
-
-- Gerçek zamanlı veriyle entegrasyon (örneğin yoğunluk/süre güncellemeleri)
+## 💡 Gelecek Geliştirmeler
+- Gerçek zamanlı veri entegrasyonu
 - Harita tabanlı görsel arayüz
-- Dinamik hat ekleme/silme sistemi
-- Aktarma noktalarının görsel olarak vurgulanması
-- A* algoritmasına daha gelişmiş heuristic fonksiyonu eklenmesi (örneğin fiziksel mesafeye dayalı)
+- Dinamik hat yönetim sistemi
+- Aktarma noktalarının görselleştirilmesi
+- Gelişmiş rota hesaplama algoritmaları
 
----
-
-## 🔗 Projeyi Çalıştırmak İçin
-
+## 🚀 Projeyi Çalıştırma
 ```bash
 python ŞeymaCoştur_MetroSimulation.py
+```
 
+## 🔍 Notlar
+- Türkçe karakter desteği için `utf-8` kodlaması kullanılmıştır
+- Çıktılar terminal üzerinde doğru görüntülenecek şekilde yapılandırılmıştır
