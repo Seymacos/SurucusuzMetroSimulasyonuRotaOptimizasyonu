@@ -46,6 +46,12 @@ Kod dosyasının başında Türkçe karakterlerin terminalde doğru şekilde gö
 - **En az aktarmalı rota**: Keçiören → Gar → Sıhhiye → Kızılay → AŞTİ  
 - **En hızlı rota** (toplam 14 dakika): Keçiören → Gar → Sıhhiye → Kızılay → AŞTİ
 
+## 🖼️ Örnek Çıktı Görseli
+
+Aşağıda örnek bir test senaryosunun çıktı ekranı yer almaktadır:
+
+![Metro Ağı Görseli](çıktı.jpg)
+
 ## 💡 Geliştirme Önerileri
 
 - Gerçek zamanlı veriyle entegrasyon (örneğin yoğunluk/süre güncellemeleri)
